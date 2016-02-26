@@ -1,26 +1,30 @@
 ##Masum's version
+#2_25_2016
+#825pm
 
-#function 1: makes the mx
-makeMx <-function (mx=matrix()) {
+    #clears matrix value stored
+    invx<-NULL    
     
-      invx<-NULL    
-
-      #1Resets the matrix
-      setmx<-function(y) {
-          mx<<-y
-          invx <<-NULL
-        }
-    
-    #2returns the matrix (mx1)
+    ##function 1: makes the mx
+    makeMx <-function (mx=matrix()) {
+      
+    #function2 - clear inverse, set matrix. Matrix Input by user.
+    setmx<-function(y) {
+      mx<<-y
+      invx <<-NULL
+      }
+      
+    #function3 - returns the matrix (mx1). Matrix Input by user.
     getmx <-function() mx
     
-    ##3sets the matrixinv if not already in place
+    #function4 - sets the matrix inverse. Matrix Input by user.
     setinvx <-function(inversemx) invx<<-solve(inversemx)
     
-    ##4gets the matrixinv
+    ##4returns the matrix inverse. Matrix Input by user.
     getinvx <-function() invx
-    list(getmx=getmx,setmx=setmx,setinvx=setinvx,getinvx=getinvx)
     
+    ###output
+    list(getmx=getmx,setmx=setmx,setinvx=setinvx,getinvx=getinvx)
   }
 
 #function 2: caches or returns the matrix inverse
@@ -28,13 +32,22 @@ cachematrixinv <- function(mx, ...) {
     
     #returns the inverse cached
     invx <- mx$getinvx()
-    if(!is.null(invx)) {
+
+    #if inverse non-null then return stored inverse
+      if(!is.null(invx)) {
         message("getting cached matrix inverse")
         return(invx)
-      }
-    #else calculates the inverse
+        }
+
+    ##else calls getmatrix()
     data <- mx$getmx()
+    
+    #calculates the inverse
     invx <- solve(data, ...)
+    
+    ##calls setinverse()
     mx$setinvx(invx)
+    
+    ##calls inverse
     invx
     }
